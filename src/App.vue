@@ -103,7 +103,7 @@ watch(weights, (newWeights) => {
 				<h2>Weight History</h2>
 				<ul>
 					<li v-for="weight in weights" :key="weight.date">
-						<span>{{ weight.weight }}kg</span>
+						<span>{{ weight.weight }} kg</span>
 						<small>
 							{{ new Date(weight.date).toLocaleDateString() }}
 						</small>
