@@ -103,7 +103,7 @@ watch(weights, (newWeights) => {
 				<h2>Histórico de peso</h2>
 				<ul>
 					<li v-for="weight in weights" :key="weight.date">
-						<span>{{ weight.weight }}kg</span>
+						<span>{{ weight.weight }} kg</span>
 						<small>
 							{{ new Date(weight.date).toLocaleDateString() }}
 						</small>
@@ -140,7 +140,7 @@ h1 {
 
 h2 {
 	margin-bottom: 1rem;
-	color: #888;
+	color: #0213fd;
 	font-weight: 400;
 }
 
@@ -157,7 +157,7 @@ h2 {
 	background-color: white;
 	border-radius: 999px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	border: 5px solid hwb(330 41% 0%);
+	border: 5px solid hwb(231 0% 3%);
 	
 	margin: 0 auto 2rem;
 }
@@ -170,7 +170,7 @@ h2 {
 }
 
 .current small {
-	color: #888;
+	color: hwb(231 0% 3%);
 	font-style: italic;
 }
 
@@ -185,7 +185,7 @@ form {
 
 form:focus-within,
 form:hover {
-	border-color: hotpink;
+	border-color: hwb(231 0% 3%);
 	border-width: 2px;
 }
 
@@ -205,7 +205,7 @@ form input[type="submit"] {
 	outline: none;
 	border: none;
 	cursor: pointer;
-	background-color: hotpink;
+	background-color: hwb(231 0% 3%);
 
 	padding: 0.5rem 1rem;
 
@@ -218,14 +218,14 @@ form input[type="submit"] {
 
 form input[type="submit"]:hover {
 	background-color: white;
-	color: hotpink;
-	border-left-color: hotpink;
+	color: hwb(231 0% 3%);;
+	border-left-color: hwb(231 0% 3%);
 }
 
 .canvas-box {
 	width: 100%;
 	max-width: 720px;
-	background-color: white;
+	background-color: rgb(255, 255, 255);
 	padding: 1rem;
 	border-radius: 0.5rem;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -266,7 +266,7 @@ form input[type="submit"]:hover {
 }
 
 .weight-history ul li small {
-	color: #888;
+	color: hwb(231 0% 3%);
 	font-style: italic;
 }
 </style>
