@@ -48,7 +48,7 @@ watch(weights, (newWeights) => {
 					.map(weight => new Date(weight.date).toLocaleDateString()),
 				datasets: [
 					{
-						label: 'Weight',
+						label: 'Peso',
 						data: ws
 							.sort((a, b) => a.date - b.date)
 							.map(weight => weight.weight),
@@ -71,11 +71,11 @@ watch(weights, (newWeights) => {
 <template>
 	<main>
 
-		<h1>Weight Tracker</h1>
+		<h1>Acompanhamento de peso</h1>
 
 		<div class="current">
 			<span>{{ currentWeight.weight }}</span>
-			<small>Current Weight (kg)</small>
+			<small>Peso atual (kg)</small>
 		</div>
 
 		<form @submit.prevent="addWeight">
@@ -86,13 +86,13 @@ watch(weights, (newWeights) => {
 
 			<input	
 				type="submit"
-				value="Add weight" />
+				value="Adicionar peso" />
 		</form>
 
 		<div v-if="weights && weights.length > 0">
 
 			<h2>
-				Last 7 days
+				Últimos 7 dias
 			</h2>
 
 			<div class="canvas-box">
@@ -100,7 +100,7 @@ watch(weights, (newWeights) => {
 			</div>
 
 			<div class="weight-history">
-				<h2>Weight History</h2>
+				<h2>Histórico de pesos</h2>
 				<ul>
 					<li v-for="weight in weights" :key="weight.date">
 						<span>{{ weight.weight }} kg</span>
