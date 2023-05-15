@@ -78,8 +78,6 @@ watch(weights, (newWeights) => {
 
 			<small>Peso atual (kg)</small>
 
-			<small>Peso atual</small>
-
 		</div>
 
 		<form @submit.prevent="addWeight">
@@ -106,8 +104,6 @@ watch(weights, (newWeights) => {
 			<div class="weight-history">
 
 				<h2>Histórico de pesos</h2>
-
-				<h2>Histórico de peso</h2>
 
 				<ul>
 					<li v-for="weight in weights" :key="weight.date">
