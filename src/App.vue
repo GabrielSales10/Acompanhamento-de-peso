@@ -1,70 +1,109 @@
 <script setup>
+// ref cria referencia reativa, shallowRef atualiza apenas uma parte, computed cria um valor computado reativo, nextTick atualiza com base na alteração dos dados
 import { ref, shallowRef, computed, watch, nextTick } from 'vue'
+// biblioteca para criar gráficos e visualizar dados
 import Chart from 'chart.js/auto'
 
+//referencia reativa para um array vazio
 const weights = ref([])
 
+//referencia reativa para um valor inicial nulo.
 const weightChartEl = ref(null)
 
+// referencia reativa rasa, armazena uma instancia do objeto Chart.js
 const weightChart = shallowRef(null)
 
+//referencia reativa com valor inicial zero
 const weightInput = ref(0)
 
+//variável computada para calcular o peso atual do usuário
 const currentWeight = computed(() => {
+	//classifica o array em ordem decrescente, sendo primeiro o mais recente
 	return weights.value.sort((a, b) => b.date - a.date)[0] || { weight: 0 }
 })
 
+//adicionar um novo peso ao array de pesos armazenados em 'weights'
 const addWeight = () => {
 	weights.value.push({
+		//recebe o valor atual 'weightInput' do usuário para o novo peso a ser adicionado
 		weight: weightInput.value,
+		// data atual
 		date: new Date().getTime()
 	})
 }
 
+// mudanças na referencia reativa 'weights'
 watch(weights, (newWeights) => {
+	// cria uma cópia do array sem modificar o array original
 	const ws = [...newWeights]
 
+	//valor atual da referencia 'weightChart'existir
 	if (weightChart.value) {
+		// dados dos gráficos
 		weightChart.value.data.labels = ws
+			//ordenação das datas do array
 			.sort((a, b) => a.date - b.date)
+			//transforma cada objeto de 'ws' em uma string de data formatada
 			.map(weight => new Date(weight.date).toLocaleDateString() )
+			// exibe os dados dos últimos 7 dias
 			.slice(-7)
 
+		//atualiza os dados do gráfico de peso
 		weightChart.value.data.datasets[0].data = ws
+			//ordenação das datas do array
 			.sort((a, b) => a.date - b.date)
+			//extrai o peso de cada objeto em 'ws'
 			.map(weight => weight.weight)
+			//retorna os últimos 7 pesos do array
 			.slice(-7)
 
+		//atualiza o gráfico de peso com os novos dados que foram definidos
 		weightChart.value.update()
 		return
 	}
 
+	//gráfico seja criado apenas após a atualização do valor de referencia 'weightChartEl'
 	nextTick(() => {
+		// cria um novo gráfico em 2d
 		weightChart.value = new Chart(weightChartEl.value.getContext('2d'), {
+			//tipo de gráfico: linhas
 			type: 'line',
+			// dados a serem exibidos
 			data: {
 				labels: ws
+					//ordenação das datas do array
 					.sort((a, b) => a.date - b.date)
+					//transforma cada objeto de 'ws' em uma string de data formatada
 					.map(weight => new Date(weight.date).toLocaleDateString()),
 				datasets: [
 					{
 						label: 'Peso',
 						data: ws
+							//ordenação das datas do array
 							.sort((a, b) => a.date - b.date)
+							//extrai o peso de cada objeto em 'ws'
 							.map(weight => weight.weight),
+						// cor abaixo da linha do gráfico
 						backgroundColor: 'rgba(255, 105, 180, 0.2)',
+						// a cor da linha do gráfico
 						borderColor: 'rgba(255, 105, 180, 1)',
+						// largura da linha
 						borderWidth: 1,
+						// área abaixo da linha será preenchida com a cor de fundo
 						fill: true
 					}
 				]
 			},
 			options: {
+				//permite que o gráfico seja redimensionado de forma responsiva
 				responsive: true,
+				//o gráfico pode ser redimensionado livremente em todas as direções
 				maintainAspectRatio: false
 			}
 		})
 	})
+	//alterações de propriedades profundas serão monitoradas, se houver mudanças 
+	//dentro do objeto 'weights' elas serão detectadas pelo 'watch'
 }, { deep: true })
 </script>
 
@@ -80,23 +119,31 @@ watch(weights, (newWeights) => {
 
 		</div>
 
+		<!--previne o comportamento padrão de envio do formulário (ou seja, a atualização da página). 
+		Quando o usuário clicar no botão de enviar dentro do formulário, a função addWeight será executada.-->
 		<form @submit.prevent="addWeight">
+			<!-- step="0.1" é o intervalo sugerido entre os valores numéricos para um controle de entrada numérica.-->
+			<!-- Qualquer alteração no valor do elemento de formulário é refletida na variável weightInput e 
+				qualquer alteração na variável weightInput é refletida no valor do elemento de formulário.-->
 			<input 
 				type="number"
-				step="0.1"
+				step="0.1" 
 				v-model="weightInput" />
 
 			<input	
 				type="submit"
 				value="Adicionar peso" />
 		</form>
-
+		
+		<!--se a variável weights existir e seu comprimento for maior que 0,
+			o conteúdo dentro da div será renderizado.-->
 		<div v-if="weights && weights.length > 0">
 
 			<h2>
 				Últimos 7 dias
 			</h2>
-
+			
+			<!--canvas é usado para renderizar o gráfico de pesos e referenciado pelo atributo ref-->
 			<div class="canvas-box">
 				<canvas ref="weightChartEl"></canvas>
 			</div>
@@ -106,6 +153,10 @@ watch(weights, (newWeights) => {
 				<h2>Histórico de pesos</h2>
 
 				<ul>
+					<!--iteração sobre o array 'weights' exibindo o peso e a data 
+					de cada objeto 'weight' do array-->
+					<!--A propriedade :key="weight.date" é usada para dar uma chave única a cada item da lista, 
+						permitindo ao Vue.js efetivamente rastrear e atualizar o DOM quando os dados mudam.-->
 					<li v-for="weight in weights" :key="weight.date">
 						<span>{{ weight.weight }} kg</span>
 						<small>
