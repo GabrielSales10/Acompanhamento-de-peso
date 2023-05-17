@@ -1,6 +1,6 @@
 ## Projeto para acompanhar a massa corporal
 
-#Aplicação desenvolvida em Vite.js + Vue.js e a biblioteca Chart.js para a criacão do gráfico.
+# Aplicação desenvolvida em Vite.js + Vue.js e a biblioteca Chart.js para a criacão do gráfico.
 
 <br>
 
