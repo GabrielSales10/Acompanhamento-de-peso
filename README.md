@@ -3,3 +3,4 @@
 Aplicação desenvolvida em Vite.js + Vue.js
 
 
+![image](https://github.com/GabrielSales10/Acompanhamento-de-peso/assets/99056850/3569949d-2980-4e43-b156-70e6d2f6ee5b)
