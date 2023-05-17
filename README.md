@@ -2,6 +2,8 @@
 
 ## Aplicação desenvolvida em Vite.js + Vue.js e a biblioteca Chart.js para a criacão do gráfico.
 
+<br>
+
 https://acompanhamento-de-peso.vercel.app
 
 <br>
