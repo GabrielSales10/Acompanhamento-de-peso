@@ -4,4 +4,5 @@
 
 <br>
 
-![image](https://github.com/GabrielSales10/Acompanhamento-de-peso/assets/99056850/3569949d-2980-4e43-b156-70e6d2f6ee5b)
+![image](https://github.com/GabrielSales10/Acompanhamento-de-peso/assets/99056850/04367793-5b77-49b6-8e7e-a9abeca293c9)
+
